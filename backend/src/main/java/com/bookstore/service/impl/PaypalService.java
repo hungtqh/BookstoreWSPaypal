@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookstore.config.PaypalPaymentIntent;
-import com.bookstore.config.PaypalPaymentMethod;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
@@ -23,7 +21,7 @@ public class PaypalService {
 	@Autowired
 	private APIContext apiContext;
 
-	public Payment createPayment(Double total, String currency, PaypalPaymentMethod method, PaypalPaymentIntent intent,
+	public Payment createPayment(Double total, String currency, String method, String intent,
 			String description, String cancelUrl, String successUrl) throws PayPalRESTException {
 		Amount amount = new Amount();
 		amount.setCurrency(currency);

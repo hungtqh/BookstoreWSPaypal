@@ -11,14 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookstore.config.PaypalPaymentIntent;
-import com.bookstore.config.PaypalPaymentMethod;
 import com.bookstore.domain.User;
 import com.bookstore.domain.UserBilling;
 import com.bookstore.domain.UserPayment;
@@ -85,13 +82,13 @@ public class PaymentResource {
 		return userPaymentList;
 	}
 
-	@PostMapping("/paypal")
+	@RequestMapping(value = "/paypal", method = RequestMethod.POST)
 	public ResponseEntity<String> pay(HttpServletRequest request, @RequestBody double price) {
 		String cancelUrl = Utils.getFrontendBaseUrl() + "/" + URL_PAYPAL_CANCEL;
 		String successUrl = Utils.getFrontendBaseUrl() + "/" + URL_PAYPAL_SUCCESS;
 		try {
-			Payment payment = paypalService.createPayment(price, "USD", PaypalPaymentMethod.paypal,
-					PaypalPaymentIntent.sale, "payment description", cancelUrl, successUrl);
+			Payment payment = paypalService.createPayment(price, "USD", "paypal",
+					"sale", "payment description", cancelUrl, successUrl);
 			for (Links links : payment.getLinks()) {
 				if (links.getRel().equals("approval_url")) {
 					return new ResponseEntity<String>(links.getHref(), HttpStatus.OK);
@@ -103,7 +100,7 @@ public class PaymentResource {
 		return new ResponseEntity<String>("Payment not allowed!", HttpStatus.BAD_REQUEST);
 	}
 
-	@PostMapping("/confirmPaypal")
+	@RequestMapping(value = "/confirmPaypal", method = RequestMethod.POST)
 	public ResponseEntity<String> successPay(@RequestBody HashMap<String, String> mapper, Principal principal) {
 		String paymentId = mapper.get("paymentId");
 		String PayerID = mapper.get("PayerID");

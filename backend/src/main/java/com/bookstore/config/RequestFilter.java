@@ -31,9 +31,9 @@ public class RequestFilter implements Filter{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("Pre-fight");
-			response.setHeader("Access-Control-Allowed-Methods", "POST, GET, DELETE");
+		} else { // neu dung options thi phai gui yeu cau len server xem phuong thuc co duoc chap nhan khong
+			System.out.println("Pre-flight");
+			response.setHeader("Access-Control-Allowed-Methods", "POST, GET, DELETE"); // o day co the sd tao moi, get va xoa
 			response.setHeader("Access-Control-Max-Age", "3600");
 			response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, x-auth-token, " +
                     "access-control-request-headers,access-control-request-method,accept,origin,authorization,x-requested-with");

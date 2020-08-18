@@ -103,6 +103,12 @@ public class BookResource {
 		return bookService.findAll();
 	}
 
+	@RequestMapping("/findNewBook")
+	public List<Book> getNewBook() {
+
+		return bookService.findNewBook();
+	}
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Book updateBookPost(@RequestBody Book book) {
 		return bookService.save(book);
@@ -113,8 +119,9 @@ public class BookResource {
 		bookService.removeOne(Long.parseLong(id));
 		String fileName = id + ".png";
 
-		Files.delete(Paths.get("src/main/resources/static/image/book/" + fileName));
-
+		if (new File(Paths.get("src/main/resources/static/image/book/" + fileName).toString()).exists()) {
+			Files.delete(Paths.get("src/main/resources/static/image/book/" + fileName));
+		}
 		return new ResponseEntity<String>("Remove Success!", HttpStatus.OK);
 	}
 

@@ -19,7 +19,7 @@ export class OrderSummaryComponent implements OnInit {
   constructor(
   	private checkoutService: CheckoutService,
   	private route: ActivatedRoute,
-  	private router: Router
+		private router: Router
   	) { }
 
   ngOnInit() {
@@ -37,9 +37,9 @@ export class OrderSummaryComponent implements OnInit {
   		let days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   		this.estimatedDeliveryDate = days[deliveryDate.getDay()]+', '+deliveryDate.getFullYear()+'/'+[deliveryDate.getMonth() + 1]+'/'+deliveryDate.getDate();
 
-
-  		this.cartItemList = this.order.cartItemList;
+			this.cartItemList = this.order.cartItemList;
+			
   	});
-  }
+	}
 
 }

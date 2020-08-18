@@ -15,12 +15,15 @@ import { UserBilling } from '../../models/user-billing';
 import { UserShipping } from '../../models/user-shipping';
 import { Payment } from '../../models/payment';
 import { Order } from '../../models/order';
-import { httpFactory } from '@angular/http/src/http_module';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { LoaderComponent } from '../loader/loader.component';
+import { delay } from 'rxjs-compat/operator/delay';
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
   private serverPath = AppConst.serverPath;
@@ -50,7 +53,8 @@ export class OrderComponent implements OnInit {
     private shippingService: ShippingService,
     private paymentService: PaymentService,
     private checkoutService: CheckoutService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private overlay: Overlay
   ) { }
 
   onSelect(book: Book) {
@@ -132,6 +136,7 @@ export class OrderComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showProcessingOverlay();
     this.checkoutService.checkout(
       this.shippingAddress,
       this.billingAddress,
@@ -147,7 +152,6 @@ export class OrderComponent implements OnInit {
             "order": JSON.stringify(this.order)
           }
         };
-
         this.router.navigate(['/orderSummary'], navigationExtras);
       },
       error => {
@@ -157,6 +161,7 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getCartItemList();
 
     this.activatedRoute.queryParams.subscribe(params => {
@@ -165,12 +170,8 @@ export class OrderComponent implements OnInit {
 
       if (paymentId !== undefined && PayerID !== undefined) {
         this.paymentService.confirmPayment(paymentId, PayerID).subscribe(res => {
-          let status = res.status;
-
-          console.log(status);
-
-          if (status === 200) {
-            
+          this.showProcessingOverlay();
+          if (res.status === 200) {
             this.checkoutService.checkoutPaypal(this.shippingAddress,
               this.shippingMethod).subscribe(
                 res => {
@@ -182,7 +183,7 @@ export class OrderComponent implements OnInit {
                       "order": JSON.stringify(this.order)
                     }
                   };
-          
+
                   this.router.navigate(['/orderSummary'], navigationExtras);
                 },
                 error => {
@@ -270,4 +271,17 @@ export class OrderComponent implements OnInit {
       }
     );
   }
+
+  showProcessingOverlay() {
+    const overlayRef = this.overlay.create({
+      positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+      hasBackdrop: true
+    });
+    overlayRef.attach(new ComponentPortal(LoaderComponent));
+    setTimeout(() => {
+      overlayRef.dispose()
+    }, 5000);
+
+  }
+
 }

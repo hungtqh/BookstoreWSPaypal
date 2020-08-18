@@ -14,7 +14,7 @@ export class LoginService {
   constructor(private http:Http, private router:Router) { }
 
     sendCredential(username: string, password: string) {
-  	let url = this.serverPath+'/token';
+  	let url = this.serverPath+'/login';
   	let encodedCredentials = btoa(username+":"+password);
   	let basicHeader = "Basic "+encodedCredentials;
   	let headers = new Headers({

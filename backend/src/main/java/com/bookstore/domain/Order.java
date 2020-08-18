@@ -22,14 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "user_order")
 public class Order implements Serializable {
 
-	public Paypal getPaypal() {
-		return paypal;
-	}
-
-	public void setPaypal(Paypal paypal) {
-		this.paypal = paypal;
-	}
-
 	private static final long serialVersionUID = 2893475845L;
 
 	@Id
@@ -139,6 +131,14 @@ public class Order implements Serializable {
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+
+	public Paypal getPaypal() {
+		return paypal;
+	}
+
+	public void setPaypal(Paypal paypal) {
+		this.paypal = paypal;
 	}
 
 	public User getUser() {

@@ -17,6 +17,16 @@ export class BookService {
   		'x-auth-token' : localStorage.getItem("xAuthToken")
   	});
   	return this.http.get(url, {headers: tokenHeader});
+	}
+	
+	getNewBookList() {
+  	let url = AppConst.serverPath+"/book/findNewBook";
+
+  	let tokenHeader = new Headers({
+  		'Content-Type' : 'application/json',
+  		'x-auth-token' : localStorage.getItem("xAuthToken")
+  	});
+  	return this.http.get(url, {headers: tokenHeader});
   }
 
   getBook(id:number) {

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginResource {
 
-	@RequestMapping("/token")
-	public Map<String, String> token(HttpSession session, HttpServletRequest request) {
+	@RequestMapping("/login")
+	public Map<String, String> login(HttpSession session, HttpServletRequest request) {
 		System.out.println(request.getRemoteHost());
 
 		String remoteHost = request.getRemoteHost();

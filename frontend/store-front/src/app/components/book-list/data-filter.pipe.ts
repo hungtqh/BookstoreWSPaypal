@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class DataFilterPipe implements PipeTransform {
 	transform(array: any[], query: string) : any {
 		if(query) {
-			return _.filter(array, row=> row.description.toLowerCase().includes(query.toLowerCase()));
+			return _.filter(array, row => row.description.toLowerCase().includes(query.toLowerCase()));
 		}
 		return array;
 	}

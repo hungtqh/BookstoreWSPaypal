@@ -3,19 +3,19 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatInputModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule } from '@angular/material';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatListModule} from '@angular/material/list';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { MatInputModule, MatGridListModule, MatMenuModule, MatIconModule, MatAutocompleteModule, MatFormFieldModule} from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material';
 import 'hammerjs';
 import { HomeComponent } from './components/home/home.component';
 import { routing } from './app.routing';
@@ -40,6 +40,7 @@ import { CheckoutService } from './services/checkout.service';
 import { DataTableModule } from 'angular2-datatable';
 import { DataFilterPipe } from './components/book-list/data-filter.pipe';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -54,17 +55,19 @@ import { FooterComponent } from './components/footer/footer.component';
     OrderSummaryComponent,
     ShoppingCartComponent,
     DataFilterPipe,
-    FooterComponent
+    FooterComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
     MatGridListModule,
+    MatCardModule,
+    MatProgressBarModule,
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -86,6 +89,7 @@ import { FooterComponent } from './components/footer/footer.component';
     OrderService,
     CheckoutService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LoaderComponent]
 })
 export class AppModule { }

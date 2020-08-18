@@ -62,4 +62,9 @@ public class BookServiceImpl implements BookService{
 	public void removeOne(Long id) {
 		bookRepository.deleteById(id);
 	}
+
+	@Override
+	public List<Book> findNewBook() {
+		return bookRepository.findTop6ByActiveTrueOrderByPublicationDateDesc();
+	}
 }

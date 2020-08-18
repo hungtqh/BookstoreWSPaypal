@@ -8,4 +8,7 @@ import com.bookstore.domain.Book;
 
 public interface BookRepository extends CrudRepository<Book, Long>{
 	List<Book> findByTitleContaining(String keyword);
+	
+	List<Book> findTop6ByActiveTrueOrderByPublicationDateDesc();
+
 }

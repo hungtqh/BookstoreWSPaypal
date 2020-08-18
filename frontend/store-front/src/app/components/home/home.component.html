@@ -51,23 +51,10 @@
 	<img class="img-fluid" src="../../../assets/image/shelf.png" style="margin-top: -5px; z-index:-1;" />
 
 	<div class="row" style="margin:auto; margin-top:-190px; margin-bottom:50px; width:90%;">
-		<div class="col-2">
-			<img class="img-fluid" style="width: 60%;" src="../../../assets/image/book1.png" />
-		</div>
-		<div class="col-2">
-			<img class="img-fluid" style="width: 60%;" src="../../../assets/image/book1.png" />
-		</div>
-		<div class="col-2">
-			<img class="img-fluid" style="width: 60%;" src="../../../assets/image/book1.png" />
-		</div>
-		<div class="col-2">
-			<img class="img-fluid" style="width: 60%;" src="../../../assets/image/book1.png" />
-		</div>
-		<div class="col-2">
-			<img class="img-fluid" style="width: 60%;" src="../../../assets/image/book1.png" />
-		</div>
-		<div class="col-2">
-			<img class="img-fluid" style="width: 60%;" src="../../../assets/image/book1.png" />
+		<div *ngFor = "let book of newBookList" class="col-2">
+			<a (click)="onSelect(book)" style="cursor:pointer;">
+				<img class="img-fluid" style="height: 155px; width: 120px;" src="{{serverPath}}/image/book/{{book.id}}.png" />
+			</a>
 		</div>
 	</div>
 

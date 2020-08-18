@@ -83,17 +83,9 @@ export class ShoppingCartComponent implements OnInit {
 
   onCheckout() {
   	if(this.cartItemNumber==0) {
-  		this.emptyCart=true;
+			this.emptyCart=true;
   	} else {
-  		for (let item of this.cartItemList) {
-  			if (item.qty > item.book.inStockNumber) {
-  				console.log("not enough stock on some item");
-  				this.notEnoughStock=true;
-  				return;
-  			}
-  		}
-
-			// this.router.navigate('[/order]');
+  		this.router.navigate(['/checkout']);
   	}
   }
 

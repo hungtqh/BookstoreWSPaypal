@@ -32,7 +32,9 @@ export class EditBookComponent implements OnInit {
 				this.uploadImageService.filesToUpload = [];
   		},
   		error => console.log(error)
-  	);
+		);
+		
+		//this.router.navigate(['bookList']);
   }
 
   ngOnInit() {
